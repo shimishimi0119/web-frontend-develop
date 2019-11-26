@@ -1,0 +1,16 @@
+stages:
+    - deploy
+develop:
+    stage: deploy
+    script:
+        - whoami
+        - cd /home/vagrant/workspace/frontend
+        - git fetch origin develop
+        - git reset --hard origin/develop
+        - sudo -u vagrant pm2 restart frontend
+        - npm run build
+    only:
+        - develop
+    tags:
+        - nokia_development_deploy
+    when: manual
